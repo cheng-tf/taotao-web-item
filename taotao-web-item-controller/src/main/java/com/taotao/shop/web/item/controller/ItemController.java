@@ -1,9 +1,9 @@
 package com.taotao.shop.web.item.controller;
 
-import com.taotao.shop.item.domain.pojo.TbItem;
-import com.taotao.shop.item.domain.pojo.TbItemDesc;
-import com.taotao.shop.item.export.ItemResource;
 import com.taotao.shop.web.item.domain.vo.Item;
+import com.taotao.springboot.item.domain.pojo.TbItem;
+import com.taotao.springboot.item.domain.pojo.TbItemDesc;
+import com.taotao.springboot.item.export.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

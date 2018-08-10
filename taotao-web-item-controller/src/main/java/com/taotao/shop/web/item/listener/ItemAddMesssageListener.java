@@ -1,8 +1,8 @@
 package com.taotao.shop.web.item.listener;
 
-import com.taotao.shop.item.domain.pojo.TbItemDesc;
-import com.taotao.shop.item.export.ItemResource;
 import com.taotao.shop.web.item.domain.vo.Item;
+import com.taotao.springboot.item.domain.pojo.TbItemDesc;
+import com.taotao.springboot.item.export.ItemResource;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,9 @@ public class ItemAddMesssageListener implements MessageListener {
 
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
+
     @Value("${HTML_OUT_PATH}")
     private String HTML_OUT_PATH;
-
 
     @Override
     public void onMessage(Message message) {

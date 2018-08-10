@@ -1,6 +1,6 @@
 package com.taotao.shop.web.item.domain.vo;
 
-import com.taotao.shop.item.domain.pojo.TbItem;
+import com.taotao.springboot.item.domain.pojo.TbItem;
 
 /**
  * <p>Title: Item</p>

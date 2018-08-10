@@ -22,10 +22,11 @@
             <artifactId>taotao-web-item-domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- taotao-item -->
         <dependency>
-            <groupId>com.taotao.shop</groupId>
+            <groupId>com.taotao.springboot</groupId>
             <artifactId>taotao-item-export</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- Spring -->
         <dependency>
