@@ -57,7 +57,7 @@
 			<a id="notice-downp" href="#none" target="_blank" clstag="shangpin|keycount|product|jiangjia">(降价通知)</a>
 		</div>
 	</li>
-	<li id="summary-market"><div class="dt">商品编号：</div><div class="dd"><span>${item.id }</span></div></li>
+	<li id="summary-market"><div class="dt">商品编号：</div><div class="dd"><span>${item.id?c}</span></div></li>
 	<li id="summary-grade">
 		<div class="dt">商品评分：</div>
 		<div class="dd">
@@ -131,7 +131,7 @@
 		        <li id="choose-result"><div class="dt"></div><div class="dd"></div></li>
 				<li id="choose-btns">
 					<div id="choose-btn-append"  class="btn">
-							<a class="btn-append " id="InitCartUrl" href="http://localhost:8090/addToCart/${item.id}" clstag="shangpin|keycount|product|initcarturl">加入购物车<b></b></a>
+							<a class="btn-append " id="InitCartUrl" href="http://localhost:8090/addToCart/${item.id?c}" clstag="shangpin|keycount|product|initcarturl">加入购物车<b></b></a>
 					</div>
 					<div id="choose-btn-easybuy" class="btn"></div>
 					<div id="choose-btn-divide" class="btn"></div>
