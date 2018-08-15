@@ -5,6 +5,8 @@ import com.taotao.springboot.item.export.ItemResource;
 import com.taotao.springboot.web.item.domain.vo.Item;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ import java.util.Map;
 @RabbitListener(queues = "item-add.freemarker")//基于RabbitMQ：使用RabbitListener配置监听的队列
 public class ItemAddMesssageListener {
 
+    private static final Logger log = LoggerFactory.getLogger(ItemAddMesssageListener.class);
+
     @Autowired
     private ItemResource itemResource;
 
@@ -41,38 +45,40 @@ public class ItemAddMesssageListener {
     @RabbitHandler
     public void consume(String message) {
         try{
-            // 从消息中获取商品ID
+            log.info("创建商品详情静态页面, itemId={}", message);
+            // #1 从消息队列中，获取商品ID
             Long itemId = Long.parseLong(message);
-            // 等待事务提交
-            Thread.sleep(1000);
-            // 根据商品ID查询商品信息、及商品描述
+            Thread.sleep(1000);//等待事务提交
+            // #2 根据商品ID查询商品信息、商品描述信息
             Item item = new Item(itemResource.getItemById(itemId));
             TbItemDesc itemDesc = itemResource.getItemDescById(itemId);
-            // 使用FreeMarker生成静态页面
+            // #3 使用FreeMarker生成静态页面
             Configuration configuration = freeMarkerConfigurer.getConfiguration();
-            // 1.创建模板
-            // 2.加载模板对象
+            // #3.1 创建模板
+            // #3.2 加载模板对象
             Template template = configuration.getTemplate("item.ftl");
-            // 3.准备模板需要的数据
+            // #3.3 准备模板需要的数据
             Map<String, Object> data = new HashMap<>();
             data.put("item", item);
             data.put("itemDesc", itemDesc);
-            // 4.指定输出的目录及文件名
+            // #3.4 指定输出的目录及文件名
             //Writer out = new BufferedWriter(new OutputStreamWriter(//之前
                     //new FileOutputStream(new File(HTML_OUT_PATH + itemId + ".html")),"UTF-8"));
-            // #4.1 获取根目录
+            // 获取根目录
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
             if(!path.exists()) {
                 path = new File("");
             }
-            // #4.2 获取静态资源目录
+            // 获取静态资源目录
             File upload = new File(path.getAbsolutePath(),"static/");
             if(!upload.exists()) {
                 upload.mkdirs();
             }
+            String filePath = upload.getAbsolutePath() + "/" + itemId + ".html";
+            log.info("创建商品详情静态页面, 存储路径={}", filePath);
             Writer out = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(new File(upload.getAbsolutePath() + "/" + itemId + ".html")),"UTF-8"));
-            // 5.生成静态页面
+                    new FileOutputStream(new File(filePath)),"UTF-8"));
+            // #3.5 生成静态页面
             template.process(data, out);
             // 关闭流
             out.close();
