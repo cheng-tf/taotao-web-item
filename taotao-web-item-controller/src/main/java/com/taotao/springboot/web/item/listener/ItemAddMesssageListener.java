@@ -52,6 +52,7 @@ public class ItemAddMesssageListener {
             // #2 根据商品ID查询商品信息、商品描述信息
             Item item = new Item(itemResource.getItemById(itemId));
             TbItemDesc itemDesc = itemResource.getItemDescById(itemId);
+            log.info("创建商品详情静态页面, item={}");
             // #3 使用FreeMarker生成静态页面
             Configuration configuration = freeMarkerConfigurer.getConfiguration();
             // #3.1 创建模板
