@@ -1,9 +1,11 @@
 package com.taotao.springboot.web.item;
 
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * <p>Title: SpringbootApplication</p>
@@ -13,10 +15,10 @@ import org.springframework.context.annotation.ComponentScan;
  * @author ChengTengfei
  * @version 1.0
  */
-//@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class, DruidDataSourceAutoConfigure.class})//取消Druid数据源自动配置
 @ComponentScan(basePackages = "com.taotao.springboot.web.item.*")
-@EnableDubboConfiguration                                           // 启动Dubbo配置
+@ImportResource({"classpath:/dubbo.xml"})//开启Dubbo原生XML配置
+//@EnableDubboConfiguration//开启Dubbo注解配置
 public class SpringbootApplication {
 
     public static void main(String[] args) {
