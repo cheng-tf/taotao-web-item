@@ -2,6 +2,7 @@ package com.taotao.springboot.web.item.listener;
 
 import com.taotao.springboot.item.domain.pojo.TbItemDesc;
 import com.taotao.springboot.item.export.ItemResource;
+import com.taotao.springboot.web.item.common.utils.JacksonUtils;
 import com.taotao.springboot.web.item.domain.vo.Item;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -52,7 +53,7 @@ public class ItemAddMesssageListener {
             // #2 根据商品ID查询商品信息、商品描述信息
             Item item = new Item(itemResource.getItemById(itemId));
             TbItemDesc itemDesc = itemResource.getItemDescById(itemId);
-            log.info("创建商品详情静态页面, item={}");
+            log.info("创建商品详情静态页面, item={}", JacksonUtils.objectToJson(item));
             // #3 使用FreeMarker生成静态页面
             Configuration configuration = freeMarkerConfigurer.getConfiguration();
             // #3.1 创建模板
